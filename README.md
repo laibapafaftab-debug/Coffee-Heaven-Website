@@ -1,4 +1,5 @@
 # ☕ Coffee Heaven Website
+![Coffee Heaven Banner](images/profile.jpg)
 
 A responsive and modern Coffee Shop website built with **HTML5**, **CSS3**, and **JavaScript**.
 
@@ -15,7 +16,6 @@ A responsive and modern Coffee Shop website built with **HTML5**, **CSS3**, and 
 * **JavaScript** – Dynamic client-side interactivity
 
 ---
-
 ## 📁 Project Structure
 
 ```text
