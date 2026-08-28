@@ -3,75 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Heaven</title>
+    <title>Coffee Heaven | Premium Coffee & Bakery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #f7f3ef; color: #333; text-align: center; }
-        header { background-color: #3e2723; color: white; padding: 20px 0; }
-        header h1 { font-size: 2rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #f7f3ef; color: #333; }
 
+        /* Navigation Bar */
+        nav {
+            background-color: #3e2723;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .logo svg { width: 30px; height: 30px; fill: #d7ccc8; }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { color: #d7ccc8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: #ffffff; }
+
+        /* Hero Section */
         .hero {
             position: relative;
-            padding: 90px 20px;
+            padding: 100px 20px 140px;
             color: white;
-            background:
-                linear-gradient(rgba(46, 27, 20, 0.75), rgba(46, 27, 20, 0.75)),
-                url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            text-align: center;
+            background: linear-gradient(rgba(46, 27, 20, 0.8), rgba(46, 27, 20, 0.8)),
+                        url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .hero h2 { font-size: 2.5rem; margin-bottom: 10px; }
-        .hero p { font-size: 1.05rem; opacity: 0.9; }
+        .hero-icon { width: 64px; height: 64px; fill: #d7ccc8; margin-bottom: 15px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 700; }
+        .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 600px; margin-bottom: 25px; }
+        .btn-primary { background: #d4af37; color: #3e2723; padding: 12px 28px; border-radius: 30px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .btn-primary:hover { background: #fff; color: #3e2723; }
 
-        .menu { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; padding: 50px 20px; }
-        .card {
-            background: white; border-radius: 12px; overflow: hidden; width: 260px;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12); text-align: left;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.18); }
-        .card img { width: 100%; height: 160px; object-fit: cover; display: block; }
-        .card-body { padding: 18px 20px; text-align: center; }
-        .card h3 { color: #3e2723; margin-bottom: 8px; font-size: 1.15rem; }
-        .card p { color: #6b5d55; font-size: 0.92rem; line-height: 1.5; }
+        /* Smooth Wave Divider */
+        .wave-container { position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; }
+        .wave-container svg { position: relative; display: block; width: calc(100% + 1.3px); height: 60px; }
+        .wave-container .shape-fill { fill: #f7f3ef; }
 
-        footer { background: #3e2723; color: white; padding: 15px; margin-top: 20px; }
+        /* Section Headings */
+        .section-title { text-align: center; margin: 40px 0 10px; font-size: 2rem; color: #3e2723; }
+        .section-subtitle { text-align: center; color: #6b5d55; font-size: 0.95rem; margin-bottom: 30px; }
+
+        /* Menu Section & Filters */
+        .filter-buttons { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+        .filter-btn { background: white; border: 1px solid #d7ccc8; color: #3e2723; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: 500; transition: 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: #3e2723; color: white; border-color: #3e2723; }
+
+        .menu-grid { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; width: 280px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+        .card-img-wrapper { position: relative; width: 100%; height: 180px; }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .gold-badge { position: absolute; bottom: -16px; right: 16px; width: 36px; height: 36px; background: linear-gradient(135deg, #d4af37, #aa7c11); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; }
+        .gold-badge svg { width: 18px; height: 18px; fill: white; }
+        .card-body { padding: 24px 20px 20px; text-align: center; }
+        .card h3 { color: #3e2723; margin-bottom: 8px; font-size: 1.2rem; }
+        .card p { color: #6b5d55; font-size: 0.9rem; line-height: 1.4; margin-bottom: 12px; }
+        .card-price { font-weight: 700; color: #3e2723; font-size: 1.1rem; }
+
+        /* About Section */
+        .about { background: white; padding: 60px 20px; margin-top: 50px; text-align: center; }
+        .about-content { max-width: 800px; margin: 0 auto; color: #555; line-height: 1.7; }
+
+        /* Reviews Section */
+        .reviews { padding: 50px 20px; }
+        .reviews-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+        .review-card { background: white; padding: 25px; border-radius: 12px; width: 300px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-align: left; }
+        .stars { color: #d4af37; margin-bottom: 10px; }
+        .review-author { font-weight: 600; color: #3e2723; margin-top: 15px; display: block; font-size: 0.9rem; }
+
+        /* Footer */
+        footer { background: #3e2723; color: white; padding: 30px 20px; text-align: center; margin-top: 50px; }
+        footer svg { width: 24px; height: 24px; fill: #d7ccc8; margin-bottom: 10px; }
+        footer p { font-size: 0.9rem; opacity: 0.8; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>☕ Coffee Heaven</h1>
-    </header>
 
-    <section class="hero">
-        <h2>Freshly Brewed Happiness</h2>
-        <p>Experience the finest coffee in town.</p>
-    </section>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            <svg viewBox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/></svg>
+            Coffee Heaven
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+    </nav>
 
-    <section class="menu">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80" alt="Espresso shot">
-            <div class="card-body">
-                <h3>Espresso</h3>
-                <p>Rich and bold single shot.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1572442388796-11668ba67e53?auto=format&fit=crop&w=600&q=80" alt="Cappuccino with latte art">
-            <div class="card-body">
-                <h3>Cappuccino</h3>
-                <p>Espresso with steamed milk foam.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=600&q=80" alt="Latte with heart art">
-            <div class="card-body">
-                <h3>Latte</h3>
-                <p>Smooth espresso with velvety milk.</p>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <svg class="hero-icon" viewBox="0 0 24 24">
+            <path d="M1,21H23V19H1M15.5,3C14.7,3 14,3.7 14,4.5C14,5.8 16,6.5 16,8H14C14,6.5 16,5.8 16,4.5C16,3.7 15.3,3 14.5,3M8.5,3C7.7,3 7,3.7 7,4.5C7,5.8 9,6.5 9,8H7C7,6.5 9,5.8 9,4.5C9,3.7 8.3,3 7.5,3M19,10H3V13A4,4 0 0,0 7,17H15A4,4 0 0,0 19,13V10Z"/>
+        </svg>
+        <h1>Freshly Brewed Happiness</h1>
+        <p>Handcrafted coffee, roasted artisan beans, and delicious freshly baked pastries made daily with love.</p>
+        <a href="#menu" class="btn-primary">Explore Our Menu</a>
+
+        <div class="wave-container">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.06,130.83,121.6,200,115.8,241.49,112.3,281.82,90.3,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
         </div>
     </section>
 
+    <!-- Menu Section -->
+    <section id="menu">
+        <h2 class="section-title">Our Special Menu</h2>
+        <p class="section-subtitle">Select a category to filter your favorite drinks</p>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterMenu('all')">All Items</button>
+            <button class="filter-btn" onclick="filterMenu('hot')">Hot Coffee</button>
+            <button class="filter-btn" onclick="filterMenu('cold')">Cold Brews</button>
+            <button class="filter-btn" onclick="filterMenu('bakery')">Bakery</button>
+        </div>
+
+        <div class="menu-grid">
+            <div class="card hot">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=600&q=80" alt="Espresso">
+                    <div class="gold-badge"><svg viewBox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/></svg></div>
+                </div>
+                <div class="card-body">
+                    <h3>Classic Espresso</h3>
+                    <p>Rich, bold single shot of intense roasted flavor.</p>
+                    <div class="card-price">$3.50</div>
+                </div>
+            </div>
+
+            <div class="card hot">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=600&q=80" alt="Cappuccino">
+                    <div class="gold-badge"><svg viewBox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/></svg></div>
+                </div>
+                <div class="card-body">
+                    <h3>Cappuccino</h3>
+                    <p>Espresso balanced with rich steamed milk foam.</p>
+                    <div class="card-price">$4.80</div>
+                </div>
+            </div>
+
+            <div class="card cold">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80" alt="Iced Coffee">
+                    <div class="gold-badge"><svg viewBox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/></svg></div>
+                </div>
+                <div class="card-body">
+                    <h3>Cold Brew Delight</h3>
+                    <p>Slow-steeped 16 hours for a smooth, refreshing taste.</p>
+                    <div class="card-price">$5.20</div>
+                </div>
+            </div>
+
+            <div class="card bakery">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80" alt="Croissant">
+                    <div class="gold-badge"><svg viewBox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/></svg></div>
+                </div>
+                <div class="card-body">
+                    <h3>Butter Croissant</h3>
+                    <p>Flaky, golden-baked fresh french pastry.</p>
+                    <div class="card-price">$3.90</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">Our Story</h2>
+        <div class="about-content">
+            <p>At Coffee Heaven, we source 100% organic Arabica beans directly from ethical farms worldwide. Every cup is brewed to perfection by passionate baristas who treat coffee crafting as a true fine art.</p>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews" id="reviews">
+        <h2 class="section-title">What Coffee Lovers Say</h2>
+        <p class="section-subtitle">Feedback from our daily regular customers</p>
+
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"The best cappuccino in town! Perfect atmosphere to work or catch up with friends."</p>
+                <span class="review-author">— Sarah M.</span>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p>"Their Cold Brew is amazingly smooth and their butter croissants are always fresh."</p>
+                <span class="review-author">— Ali Raza</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Coffee Heaven. All rights reserved.</p>
+        <svg viewBox="0 0 24 24"><path d="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"/></svg>
+        <p>&copy; 2026 Coffee Heaven. Designed with ❤️ by Laiba.</p>
     </footer>
+
+    <!-- Filter JavaScript -->
+    <script>
+        function filterMenu(category) {
+            const cards = document.querySelectorAll('.card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
